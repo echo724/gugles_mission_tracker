@@ -31,15 +31,19 @@ def get_all_discussions():
         CACHED_DISCUSSIONS.append(discussions)
     return CACHED_DISCUSSIONS[0]
 
-def get_discussions_after_period(start,end):
-    discussions = get_all_discussions()
+def get_discussions_after_period(discussions,start,end):
     return [discussion for discussion in discussions \
             if datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ").date() >= start \
             and datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ").date() < end]
 
-def get_discussions_number_by_author_after_date(author, start,end):
-    return len([discussion for discussion in get_discussions_after_period(start,end) if discussion['node']['author']['login'] == author])
+def get_discussions_by_category(discussions,category):
+    return [discussion for discussion in discussions if discussion['node']['category']['name'] == category]
 
+def get_discussions_number_by_author_after_date(author, start,end):
+    discussions = get_all_discussions()
+    discussions = get_discussions_after_period(discussions,start,end)
+    discussions = get_discussions_by_category(discussions,"글 모음")
+    return len([discussion for discussion in discussions if discussion['node']['author']['login'] == author])
 
 
 def build_mutation_query(repository_id, category_id, body, title):

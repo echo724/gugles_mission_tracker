@@ -44,6 +44,8 @@ mutation {
 }
 """
 
+# TODO: 글 모음에서만 찾도록 쿼리 수정해야함
+
 QUERY = """
 {
     repository(owner: "woowacourse-study", name: "Gugles") {
@@ -59,6 +61,9 @@ QUERY = """
                     id
                     title
                     createdAt
+                    category{
+                        name
+                    }
                     author {
                         login
                     }
