@@ -29,13 +29,27 @@ def make_status_body(period):
         body += f"|{nickname}|{status[nickname]}|\n"
     body += f"|{len(nickname)}명|{sum(status.values())}개|\n"
     
+    exceptions = parse_exception_list(has_no_discussion)
+    if not exceptions:
+        has_no_discussion = list(filter(lambda x: x not in exceptions, has_no_discussion))
+    
     body += "\n"
-    body += f"### 🥲 미션을 수행하지 않은 사람들: {len(has_no_discussion)}명\n\n"
+    body += f"### 🥲 미션을 수행하지 않은 크루: {len(has_no_discussion)}명\n\n"
     body += ", ".join(has_no_discussion)
     body += "\n\n"
     next_week = sheets.get_week_start_date() + datetime.timedelta(days=14)
     body += f"### 💪 {next_week.strftime('%-m월 %-d일')}까지 반성문을 작성해 슬랙에 올려주세요\n\n"
     return body
+
+def parse_exception_list(has_no_discussion):
+    while True:
+        exception_list = list(map(lambda x: x.strip(),input("예외자 입력:(크루는 ,로 구분) ").split(",")))
+        if exception_list == [""]:
+            return []
+        if all(map(lambda x: x in has_no_discussion, exception_list)):
+            print(f"예외자: {', '.join(exception_list)}")
+            return exception_list
+        print("예외자가 잘못 입력되었습니다. 다시 입력해주세요.")
 
 def make_body(period):
     body = make_status_body(period)

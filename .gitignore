@@ -1,2 +1,6 @@
 credentials.json
 dist/
+
+__pycache__/
+*.py[cod]
+
