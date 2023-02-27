@@ -1,5 +1,9 @@
 # 꾸글쓰 미션 트래커
 
+우아한테크코스 5기 [꾸준히 글쓰는 크루들](https://github.com/woowacourse-study/Gugles)에서 사용되는 미션 트래커
+
+- Dicussions 활동 기록으로 gspread 업데이트 및 discussion에 결과 업로드
+
 ## 준비물
 
 - github personal token
