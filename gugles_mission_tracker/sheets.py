@@ -46,9 +46,12 @@ def update_cell_from_github_id(github_id,value):
     col_number = get_col_number_from_week_number()
     sheet.update_cell(row_number, col_number, value)
     
-def update_cell_from_nickname(nickname,value):
+def update_cell_from_nickname(nickname,value,period):
     sheet = get_sheet()
     nicknames = get_nicknames()
     row_number = nicknames.index(nickname) + 2
-    col_number = get_col_number_from_week_number()
+    if period == "this_week":
+        col_number = get_col_number_from_week_number()
+    elif period == "last_week":
+        col_number = get_col_number_from_week_number() - 1
     sheet.update_cell(row_number, col_number, value)

@@ -9,4 +9,4 @@ def update_cells(period):
     else:
         raise Exception("Invalid period")
     for nickname in status.keys():
-            sheets.update_cell_from_nickname(nickname, status[nickname])
+            sheets.update_cell_from_nickname(nickname, status[nickname],period)

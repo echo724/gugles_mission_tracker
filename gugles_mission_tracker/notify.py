@@ -27,7 +27,7 @@ def make_status_body(period):
         if status[nickname] == 0:
             has_no_discussion.append(nickname)
         body += f"|{nickname}|{status[nickname]}|\n"
-    body += f"|{len(nickname)}명|{sum(status.values())}개|\n"
+    body += f"|{len(nicknames)}명|{sum(status.values())}개|\n"
     
     exceptions = parse_exception_list(has_no_discussion)
     if not exceptions:
@@ -35,10 +35,13 @@ def make_status_body(period):
     
     body += "\n"
     body += f"### 🥲 미션을 수행하지 않은 크루: {len(has_no_discussion)}명\n\n"
-    body += ", ".join(has_no_discussion)
-    body += "\n\n"
-    next_week = sheets.get_week_start_date() + datetime.timedelta(days=14)
-    body += f"### 💪 {next_week.strftime('%-m월 %-d일')}까지 반성문을 작성해 슬랙에 올려주세요\n\n"
+    if has_no_discussion:
+        body += ", ".join(has_no_discussion)
+        body += "\n\n"
+        next_week = sheets.get_week_start_date() + datetime.timedelta(days=14)
+        body += f"### 💪 {next_week.strftime('%-m월 %-d일')}까지 반성문을 작성해 슬랙에 올려주세요\n\n"
+    else:
+        body += "모두 수행하셨네요! 꾸글쓰 크루들 최고 👏👏👏\n\n"
     return body
 
 def parse_exception_list(has_no_discussion):
