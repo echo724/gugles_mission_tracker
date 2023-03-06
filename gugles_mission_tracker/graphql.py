@@ -1,4 +1,5 @@
 import datetime
+import time
 import requests
 import env
 
@@ -31,10 +32,13 @@ def get_all_discussions():
         CACHED_DISCUSSIONS.append(discussions)
     return CACHED_DISCUSSIONS[0]
 
+def utc2local(utc_dt):
+    return utc_dt.replace(tzinfo=datetime.timezone.utc).astimezone(tz=None)
+
 def get_discussions_after_period(discussions,start,end):
     return [discussion for discussion in discussions \
-            if datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ").date() >= start \
-            and datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ").date() < end]
+            if utc2local(datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ")).date() >= start \
+            and utc2local(datetime.datetime.strptime(discussion['node']['createdAt'], "%Y-%m-%dT%H:%M:%SZ")).date() <= end]
 
 def get_discussions_by_category(discussions,category):
     return [discussion for discussion in discussions if discussion['node']['category']['name'] == category]

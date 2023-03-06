@@ -1,10 +1,10 @@
 import datetime
 import sheets,graphql
 
-last_week_end_date = sheets.get_week_start_date()
-last_week_start_date = last_week_end_date - datetime.timedelta(days=7)
+last_week_end_date = sheets.get_week_start_date() - datetime.timedelta(days=1)
+last_week_start_date = last_week_end_date - datetime.timedelta(days=6)
 this_week_start_date = sheets.get_week_start_date()
-this_week_end_date = this_week_start_date + datetime.timedelta(days=7)
+this_week_end_date = this_week_start_date + datetime.timedelta(days=6)
 
 github_ids = sheets.get_github_ids()
 nicknames = sheets.get_nicknames()
