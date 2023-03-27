@@ -9,7 +9,13 @@ def run():
         except Exception as e:
             print("미션 수행 결과를 업데이트하는데 실패했습니다.")
             print(e)
-    
+    elif args.action == "check_last":
+        try:
+            update.update_cells("last_week")
+            print("지난주  미션 수행 결과를 업데이트했습니다.")
+        except Exception as e:
+            print("미션 수행 결과를 업데이트하는데 실패했습니다.")
+            print(e)
     elif args.action == "report":
         try:
             update.update_cells("last_week")

@@ -38,7 +38,7 @@ def make_status_body(period):
     if has_no_discussion:
         body += ", ".join(has_no_discussion)
         body += "\n\n"
-        next_week = sheets.get_week_start_date() + datetime.timedelta(days=14)
+        next_week = sheets.get_week_start_date() + datetime.timedelta(days=7)
         body += f"### 💪 {next_week.strftime('%-m월 %-d일')}까지 반성문을 작성해 슬랙에 올려주세요\n\n"
     else:
         body += "모두 수행하셨네요! 꾸글쓰 크루들 최고 👏👏👏\n\n"

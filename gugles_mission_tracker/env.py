@@ -14,7 +14,7 @@ GSPREAD_URL = "https://docs.google.com/spreadsheets/d/1mSuoPCjmRDDZ5ouNucHRO5eZm
 
 JSON_KEY_PATH = path.join(path.dirname(path.dirname(__file__)), "credentials.json")
 
-CREW_NUM = 34
+CREW_NUM = 35
 
 START_DATE = "2023-02-20"
 
