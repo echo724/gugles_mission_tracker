@@ -12,10 +12,9 @@ HEADERS = {
 
 GSPREAD_URL = "https://docs.google.com/spreadsheets/d/1mSuoPCjmRDDZ5ouNucHRO5eZmderAjGxc_LU81cPb3c/edit#gid=0"
 
-JSON_KEY_PATH = path.join(path.dirname(
-    path.dirname(__file__)), "credentials.json")
+JSON_KEY_PATH = path.join(path.dirname(path.dirname(__file__)), "credentials.json")
 
-CREW_NUM = 35
+CREW_NUM = 38
 
 START_DATE = "2023-02-20"
 
@@ -30,12 +29,7 @@ ANNOUNCEMENT_CATEGORY_ID = "DIC_kwDOJAfDqs4CUWOk"
 
 GUGLES_REPO_ID = "R_kgDOJAfDqg"
 
-CATEGORIES = [
-    "2 백엔드 글모음",
-    "3 프론트엔드 글모음",
-    "4 안드로이드 글모음",
-    "5 회고 글모음"
-]
+CATEGORIES = ["2 백엔드 글모음", "3 프론트엔드 글모음", "4 안드로이드 글모음", "5 회고 글모음"]
 
 MUTATION_QUERY = """
 mutation {
