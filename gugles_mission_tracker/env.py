@@ -1,8 +1,17 @@
 import os
-from os import path
+import json
+from dotenv import load_dotenv
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+# Injection of environment variables
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+load_dotenv(dotenv_path)
 
+GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
+JSON_KEY_PATH = json.loads(os.environ["GSPREAD_CREDENTIAL_KEY"])
+CREW_NUM = os.environ["CREW_NUM"]
+CATEGORIES = json.loads(os.environ["CATEGORIES"])
+
+# Other constants
 REQUEST_URL = "https://api.github.com/graphql"
 
 HEADERS = {
@@ -11,10 +20,6 @@ HEADERS = {
 }
 
 GSPREAD_URL = "https://docs.google.com/spreadsheets/d/1mSuoPCjmRDDZ5ouNucHRO5eZmderAjGxc_LU81cPb3c/edit#gid=0"
-
-JSON_KEY_PATH = path.join(path.dirname(path.dirname(__file__)), "credentials.json")
-
-CREW_NUM = 38
 
 START_DATE = "2023-02-20"
 
@@ -28,8 +33,6 @@ SPREAD_SCOPE = [
 ANNOUNCEMENT_CATEGORY_ID = "DIC_kwDOJAfDqs4CUWOk"
 
 GUGLES_REPO_ID = "R_kgDOJAfDqg"
-
-CATEGORIES = ["2 백엔드 글모음", "3 프론트엔드 글모음", "4 안드로이드 글모음", "5 회고 글모음"]
 
 MUTATION_QUERY = """
 mutation {
@@ -46,30 +49,34 @@ mutation {
 }
 """
 
-QUERY = """
+owner_name = "woowacourse-study"
+repo_name = "Gugles"
+
+QUERY = "{"
+QUERY += f'repository(owner: "{owner_name}", name: "{repo_name}")'
+QUERY += """
 {
-    repository(owner: "woowacourse-study", name: "Gugles") {
-        discussions(first:100 {put_cursor}) {
-            totalCount
-            pageInfo {
-                endCursor
-                hasNextPage
-            }
-            edges{
-                cursor
-                node {
-                    id
-                    title
-                    createdAt
-                    category{
-                        name
-                    }
-                    author {
-                        login
-                    }
+    discussions(first:100 {put_cursor}) {
+        totalCount
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+        edges{
+            cursor
+            node {
+                id
+                title
+                createdAt
+                category{
+                    name
+                }
+                author {
+                    login
                 }
             }
         }
     }
+}
 }
 """
