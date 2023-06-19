@@ -8,7 +8,7 @@ load_dotenv(dotenv_path)
 
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 GSPREAD_CREDENTIAL_KEY = json.loads(os.environ["GSPREAD_CREDENTIAL_KEY"])
-CREW_NUM = os.environ["CREW_NUM"]
+CREW_NUM = int(os.environ["CREW_NUM"])
 CATEGORIES = json.loads(os.environ["CATEGORIES"])
 ANNOUNCEMENT_CATEGORY_ID = os.environ["ANNOUNCEMENT_CATEGORY_ID"]
 
