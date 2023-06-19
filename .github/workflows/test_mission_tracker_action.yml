@@ -24,7 +24,7 @@ jobs:
           poetry install
       - name: Run gugles_mission_tracker
         run: |
-          poetry run gugles_mission_tracker report
+          poetry run mission_tracker report
         env:
           CREW_NUM: ${{ env.CREW_NUM }}
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
