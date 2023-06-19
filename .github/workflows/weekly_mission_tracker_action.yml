@@ -1,6 +1,7 @@
-name: Test Gugles Mission Tracker
+name: Weekly Gugles Mission Tracker
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "1 15 * * 0"
 jobs:
   run_gugles_mission_tracker:
     runs-on: ubuntu-latest
@@ -8,7 +9,7 @@ jobs:
       CREW_NUM: ${{ secrets.CREW_NUM }}
       GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
       GSPREAD_CREDENTIAL_KEY: ${{ secrets.GSPREAD_CREDENTIAL_KEY }}
-      TEST_CATEGORY_ID: ${{ secrets.TEST_CATEGORY_ID }}
+      ANNOUNCEMENT_CATEGORY_ID: ${{ secrets.ANNOUNCEMENT_CATEGORY_ID }}
       CATEGORIES: ${{ secrets.CATEGORIES }}
     steps:
       - name: Checkout code
@@ -29,5 +30,5 @@ jobs:
           CREW_NUM: ${{ env.CREW_NUM }}
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
           GSPREAD_CREDENTIAL_KEY: ${{ env.GSPREAD_CREDENTIAL_KEY }}
-          TEST_CATEGORY_ID: ${{ env.TEST_CATEGORY_ID }}
+          ANNOUNCEMENT_CATEGORY_ID: ${{ env.ANNOUNCEMENT_CATEGORY_ID }}
           CATEGORIES: ${{ env.CATEGORIES }}
