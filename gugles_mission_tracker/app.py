@@ -1,25 +1,28 @@
-import notify, update, arg_parser
+import notify, sheets, arg_parser, status_maker
 
 
 def run():
     args = arg_parser.parse_args()
     if args.action == "check":
         try:
-            update.update_cells("this_week")
+            status = status_maker.get_status("this_week")
+            sheets.update_cell(status, "this_week")
             print("미션 수행 결과를 업데이트했습니다.")
         except Exception as e:
             print("미션 수행 결과를 업데이트하는데 실패했습니다.")
             print(e)
     elif args.action == "check_last":
         try:
-            update.update_cells("last_week")
+            status = status_maker.get_status("last_week")
+            sheets.update_cell(status, "last_week")
             print("지난주  미션 수행 결과를 업데이트했습니다.")
         except Exception as e:
             print("미션 수행 결과를 업데이트하는데 실패했습니다.")
             print(e)
     elif args.action == "report":
         try:
-            update.update_cells("last_week")
+            status = status_maker.get_status("last_week")
+            sheets.update_cell(status, "last_week")
             print("미션 수행 결과를 업데이트했습니다.")
             notify.make_notification("last_week")
             print("미션 수행 결과 알림을 보냈습니다.")

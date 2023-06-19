@@ -1,7 +1,8 @@
 import datetime
-from oauth2client.service_account import ServiceAccountCredentials
-import gspread
+from google.oauth2.service_account import Credentials
 import env
+import gspread
+from gspread import Cell
 
 
 SHEET = []
@@ -9,13 +10,26 @@ NICKNAME = []
 GITHUB_IDS = []
 
 
+def get_cred():
+    cred = Credentials.from_service_account_info(env.GSPREAD_CREDENTIAL_KEY)
+    scoped = cred.with_scopes(env.SPREAD_SCOPE)
+    return scoped
+
+
+async def get_asyncio_sheet(sheet_name, agcm):
+    gc = await agcm.authorize()
+    sheet = await gc.open_by_url(env.GSPREAD_URL)
+    ws = await sheet.worksheet(sheet_name)
+    return ws
+
+
 def get_sheet(sheet_name="주차별미션현황"):
     if not SHEET:
-        credential = ServiceAccountCredentials.from_json_keyfile_dict(
-            env.GSPREAD_CREDENTIAL_KEY, env.SPREAD_SCOPE
-        )
-        gc = gspread.authorize(credential)
-        SHEET.append(gc.open_by_url(env.GSPREAD_URL).worksheet(sheet_name))
+        cred = get_cred()
+        gc = gspread.authorize(cred)
+        sheet = gc.open_by_url(env.GSPREAD_URL)
+        ws = sheet.worksheet(sheet_name)
+        SHEET.append(ws)
     return SHEET[0]
 
 
@@ -51,20 +65,20 @@ def get_week_start_date():
     return datetime.datetime.strptime(date, "%Y-%m-%d").date()
 
 
-def update_cell_from_github_id(github_id, value):
+def update_cell(status, period):
     sheet = get_sheet()
-    github_ids = get_github_ids()
-    row_number = github_ids.index(github_id) + 2
-    col_number = get_col_number_from_week_number()
-    sheet.update_cell(row_number, col_number, value)
-
-
-def update_cell_from_nickname(nickname, value, period, sheet_name="주차별미션현황"):
-    sheet = get_sheet(sheet_name)
     nicknames = get_nicknames()
-    row_number = nicknames.index(nickname) + 2
+    cells = []
+    for nickname in status.keys():
+        row_number = nicknames.index(nickname) + 2
+        col_number = get_col_number(period)
+        cells.append(Cell(row_number, col_number, status[nickname]))
+    sheet.update_cells(cells)
+
+
+def get_col_number(period):
     if period == "this_week":
         col_number = get_col_number_from_week_number()
     elif period == "last_week":
         col_number = get_col_number_from_week_number() - 1
-    sheet.update_cell(row_number, col_number, value)
+    return col_number
