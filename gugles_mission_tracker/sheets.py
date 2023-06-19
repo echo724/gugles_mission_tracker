@@ -9,13 +9,13 @@ NICKNAME = []
 GITHUB_IDS = []
 
 
-def get_sheet():
+def get_sheet(sheet_name="주차별미션현황"):
     if not SHEET:
         credential = ServiceAccountCredentials.from_json_keyfile_dict(
             env.GSPREAD_CREDENTIAL_KEY, env.SPREAD_SCOPE
         )
         gc = gspread.authorize(credential)
-        SHEET.append(gc.open_by_url(env.GSPREAD_URL).worksheet("주차별미션현황"))
+        SHEET.append(gc.open_by_url(env.GSPREAD_URL).worksheet(sheet_name))
     return SHEET[0]
 
 
@@ -59,8 +59,8 @@ def update_cell_from_github_id(github_id, value):
     sheet.update_cell(row_number, col_number, value)
 
 
-def update_cell_from_nickname(nickname, value, period):
-    sheet = get_sheet()
+def update_cell_from_nickname(nickname, value, period, sheet_name="주차별미션현황"):
+    sheet = get_sheet(sheet_name)
     nicknames = get_nicknames()
     row_number = nicknames.index(nickname) + 2
     if period == "this_week":

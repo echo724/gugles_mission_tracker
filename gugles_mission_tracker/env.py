@@ -11,6 +11,7 @@ GSPREAD_CREDENTIAL_KEY = json.loads(os.environ["GSPREAD_CREDENTIAL_KEY"])
 CREW_NUM = int(os.environ["CREW_NUM"])
 CATEGORIES = json.loads(os.environ["CATEGORIES"])
 ANNOUNCEMENT_CATEGORY_ID = os.environ["ANNOUNCEMENT_CATEGORY_ID"]
+APOLOGY_CATEGORY = json.loads(os.environ["APOLOGY_CATEGORY"])
 
 # Other constants
 REQUEST_URL = "https://api.github.com/graphql"
