@@ -10,6 +10,7 @@ GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 JSON_KEY_PATH = json.loads(os.environ["GSPREAD_CREDENTIAL_KEY"])
 CREW_NUM = os.environ["CREW_NUM"]
 CATEGORIES = json.loads(os.environ["CATEGORIES"])
+ANNOUNCEMENT_CATEGORY_ID = os.environ["ANNOUNCEMENT_CATEGORY_ID"]
 
 # Other constants
 REQUEST_URL = "https://api.github.com/graphql"
@@ -30,7 +31,6 @@ SPREAD_SCOPE = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-ANNOUNCEMENT_CATEGORY_ID = "DIC_kwDOJAfDqs4CUWOk"
 
 GUGLES_REPO_ID = "R_kgDOJAfDqg"
 
