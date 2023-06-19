@@ -1,0 +1,31 @@
+name: Weekly Gugles Mission Tracker
+on:
+  workflow_dispatch:
+jobs:
+  run_gugles_mission_tracker:
+    runs-on: ubuntu-latest
+    env:
+      CREW_NUM: ${{ secrets.CREW_NUM }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GSPREAD_CREDENTIAL_KEY: ${{ secrets.GSPREAD_CREDENTIAL_KEY }}
+      ANNOUNCEMENT_CATEGORY_ID: ${{ secrets.ANNOUNCEMENT_CATEGORY_ID }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+      - name: Run gugles_mission_tracker
+        run: |
+          poetry run gugles_mission_tracker report
+        env:
+          CREW_NUM: ${{ env.CREW_NUM }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          GSPREAD_CREDENTIAL_KEY: ${{ env.GSPREAD_CREDENTIAL_KEY }}
+          ANNOUNCEMENT_CATEGORY_ID: ${{ env.ANNOUNCEMENT_CATEGORY_ID }}
