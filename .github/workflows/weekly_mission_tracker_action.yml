@@ -12,7 +12,7 @@ jobs:
       TEST_CATEGORY_ID: ${{ secrets.TEST_CATEGORY_ID }}
       CATEGORIES: ${{ secrets.CATEGORIES }}
       APOLOGY_CATEGORY: ${{ secrets.APOLOGY_CATEGORY }}
-      ANNOUNCEMENT_CATEGORY_ID: ${{ secretes.ANNOUNCEMENT_CATEGORY_ID }}
+      ANNOUNCEMENT_CATEGORY_ID: ${{ secrets.ANNOUNCEMENT_CATEGORY_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
