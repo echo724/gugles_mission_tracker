@@ -1,3 +1,4 @@
+import pytz
 import datetime
 from google.oauth2.service_account import Credentials
 import env
@@ -49,7 +50,7 @@ def get_github_ids():
 
 def get_week_num():
     week_num = (
-        datetime.date.today()
+        datetime.date.today(pytz.timezone("Asia/Seoul"))
         - datetime.datetime.strptime(env.START_DATE, "%Y-%m-%d").date()
     ).days // 7
     return week_num
