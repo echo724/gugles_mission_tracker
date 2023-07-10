@@ -4,19 +4,17 @@ import graphql
 import status_maker
 import env
 
-NICKNAMES_HAS_NO_DISCUSSION = []
-
 github_ids = sheets.get_github_ids()
 nicknames = sheets.get_nicknames()
 
 
 def get_nicknames_has_no_discussion(nicknames, status):
     nicknames = sheets.get_nicknames()
-    if not NICKNAMES_HAS_NO_DISCUSSION:
-        for nickname in nicknames:
-            if status[nickname] == 0:
-                NICKNAMES_HAS_NO_DISCUSSION.append(nickname)
-    return NICKNAMES_HAS_NO_DISCUSSION
+    nicknames_has_no_discussion = []
+    for nickname in nicknames:
+        if status[nickname] == 0:
+            nicknames_has_no_discussion.append(nickname)
+    return nicknames_has_no_discussion
 
 
 def get_last_week_apology_status():
@@ -64,3 +62,6 @@ def check_crew_wrote_apology():
         if nickname in last_week_nicknames_has_no_apology:
             nicknames_did_not_write_apology.append(nickname)
     return nicknames_did_not_write_apology
+
+
+print(check_crew_wrote_apology())
