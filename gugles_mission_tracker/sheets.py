@@ -50,7 +50,7 @@ def get_github_ids():
 
 def get_week_num():
     week_num = (
-        datetime.date.today(pytz.timezone("Asia/Seoul"))
+        datetime.datetime.now(pytz.timezone("Asia/Seoul")).date()
         - datetime.datetime.strptime(env.START_DATE, "%Y-%m-%d").date()
     ).days // 7
     return week_num
