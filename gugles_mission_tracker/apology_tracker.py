@@ -62,6 +62,3 @@ def check_crew_wrote_apology():
         if nickname in last_week_nicknames_has_no_apology:
             nicknames_did_not_write_apology.append(nickname)
     return nicknames_did_not_write_apology
-
-
-print(check_crew_wrote_apology())
