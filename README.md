@@ -11,7 +11,7 @@
     - 글쓴 유저 파악
     - 디스커션에 미션 진행상황 작성
 - 스프레드시트에 업데이트
-- Slack Github bot을 통해 채널트 notify
+- Slack Github bot을 통해 채널에 notify
 
 ## 준비물
 
